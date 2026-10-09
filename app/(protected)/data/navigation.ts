@@ -49,12 +49,6 @@ export const navigationLinks: NavLink[] = [
     roles: DASHBOARD_VIEW_ROLES,
   },
   {
-    id: 'lesson',
-    label: 'Lessons',
-    href: ROUTES.admin.lesson.list,
-    icon: MenuBookOutlined,
-  },
-  {
     id: 'member',
     label: 'Members',
     href: ROUTES.admin.member.list,

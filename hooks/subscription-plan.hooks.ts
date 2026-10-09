@@ -22,6 +22,8 @@ interface CachedSubscriptionPlans {
   plans: SubscriptionPlan[];
 }
 
+let catalogCachedAt = 0;
+
 function isSubscriptionPlan(value: unknown): value is SubscriptionPlan {
   if (!value || typeof value !== 'object') return false;
   const plan = value as SubscriptionPlan;
@@ -50,6 +52,7 @@ function readSubscriptionPlanCache(): SubscriptionPlan[] | null {
     }
     if (Date.now() - cached.saved_at >= SUBSCRIPTION_PLAN_CACHE_MS) return null;
     if (!cached.plans.every(isSubscriptionPlan)) return null;
+    catalogCachedAt = cached.saved_at;
     return cached.plans;
   } catch {
     return null;
@@ -58,7 +61,9 @@ function readSubscriptionPlanCache(): SubscriptionPlan[] | null {
 
 function writeSubscriptionPlanCache(plans: SubscriptionPlan[]) {
   if (typeof window === 'undefined' || plans.length === 0) return;
-  const payload: CachedSubscriptionPlans = { saved_at: Date.now(), plans };
+  const saved_at = Date.now();
+  catalogCachedAt = saved_at;
+  const payload: CachedSubscriptionPlans = { saved_at, plans };
   window.localStorage.setItem(
     SUBSCRIPTION_PLAN_CACHE_KEY,
     JSON.stringify(payload)
@@ -75,7 +80,16 @@ export const useSubscriptionPlans = () =>
       writeSubscriptionPlanCache(plans);
       return plans;
     },
-    staleTime: SUBSCRIPTION_PLAN_CACHE_MS,
+    staleTime: (query) => {
+      const plans = query.state.data;
+      if (!plans?.length || catalogCachedAt <= 0) return 0;
+      return Math.max(
+        catalogCachedAt +
+          SUBSCRIPTION_PLAN_CACHE_MS -
+          query.state.dataUpdatedAt,
+        0
+      );
+    },
     gcTime: SUBSCRIPTION_PLAN_CACHE_MS,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
