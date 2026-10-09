@@ -12,6 +12,8 @@ import {
   formatPeriodRange,
   formatRatioAsPercent,
 } from '@/utils/dashboard.utils';
+import AppButton from '@/components/AppButton';
+import { ROUTES } from '@/constant/routes.constant';
 import IntentBreakdown from './IntentBreakdown';
 import MetricCard from './MetricCard';
 
@@ -126,6 +128,14 @@ export default function DashboardReport({
             value={formatRatioAsPercent(intent.actionable_ratio)}
             detail="Orders and enquiries divided by total messages"
           />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <AppButton href={ROUTES.admin.enquiry.list} variant="outlined">
+            View enquiries ({formatCount(intent.enquiry)})
+          </AppButton>
+          <AppButton href={ROUTES.admin.order.list} variant="outlined">
+            View orders ({formatCount(intent.order)})
+          </AppButton>
         </div>
       </section>
 

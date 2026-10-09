@@ -7,6 +7,12 @@ export const ROUTES = {
   terms: '/terms',
   admin: {
     dashboard: '/admin',
+    enquiry: {
+      list: '/admin/enquiry',
+    },
+    order: {
+      list: '/admin/order',
+    },
     lesson: {
       list: '/admin/lesson',
       manage: (id?: string | number) =>
