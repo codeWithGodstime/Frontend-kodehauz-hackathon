@@ -50,14 +50,17 @@ export default function Pricing() {
   return (
     <AppContainer>
       <section className="py-16 md:py-20">
-        <div className="mx-auto max-w-2xl text-center">
+        <div
+          id="pricing"
+          className="mx-auto max-w-2xl scroll-mt-20 text-center"
+        >
           <p className="b2-m text-primary">Pricing</p>
           <h1 className="h3-b mt-2 text-text">
-            Free and paid workspace access
+            Start free. Upgrade when the lunch rush gets bigger.
           </h1>
           <p className="b1-r mt-4 text-text-light">
-            Start on the free plan. The paid plan bills monthly, and the first
-            payment starts automatic renewal.
+            Solo vendors get core AI filtering at $0 a month. Growing kitchens
+            move to the monthly plan for a bigger team and faster processing.
           </p>
         </div>
 

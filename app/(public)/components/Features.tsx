@@ -3,16 +3,19 @@ import { features } from '../data/data';
 
 export default function Features() {
   return (
-    <section className="border-y border-stroke bg-surface py-16 md:py-20">
+    <section
+      id="features"
+      className="scroll-mt-20 border-y border-stroke bg-surface py-16 md:py-20"
+    >
       <AppContainer>
         <div className="max-w-2xl">
-          <p className="b2-m text-primary">What&apos;s included</p>
+          <p className="b2-m text-primary">What you get</p>
           <h2 className="h3-b mt-2 text-text">
-            The groundwork is done, so your team can focus on the product
+            The inbox work, handled before you open a chat
           </h2>
         </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {features.map(({ title, description, icon: Icon }) => (
             <article
               key={title}

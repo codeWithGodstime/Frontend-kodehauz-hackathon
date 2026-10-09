@@ -4,8 +4,9 @@ import '@/theme/theme.css';
 import Providers from './Provider';
 
 export const metadata: Metadata = {
-  title: 'MSF App',
-  description: 'Scaffolded with @msflib/react-template',
+  title: 'Socialchef',
+  description:
+    'Socialchef sorts WhatsApp and Instagram DMs into orders, enquiries, and spam for food vendors.',
 };
 
 export default function RootLayout({

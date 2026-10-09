@@ -1,7 +1,11 @@
 import PublicHeader from './components/PublicHeader';
 import Hero from './components/Hero';
+import Comparison from './components/Comparison';
+import HowItWorks from './components/HowItWorks';
 import Features from './components/Features';
-import GettingStarted from './components/GettingStarted';
+import LandingPricing from './components/LandingPricing';
+import Faq from './components/Faq';
+import FinalCta from './components/FinalCta';
 import PublicFooter from './components/PublicFooter';
 
 export default function PublicHomePage() {
@@ -9,8 +13,12 @@ export default function PublicHomePage() {
     <main className="min-h-screen bg-background">
       <PublicHeader />
       <Hero />
+      <Comparison />
+      <HowItWorks />
       <Features />
-      <GettingStarted />
+      <LandingPricing />
+      <Faq />
+      <FinalCta />
       <PublicFooter />
     </main>
   );

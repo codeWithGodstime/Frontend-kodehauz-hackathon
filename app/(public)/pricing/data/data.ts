@@ -1,8 +1,13 @@
 export const planFeatures: Record<string, string[]> = {
-  free: ['No charge', 'Free access for one workspace'],
+  free: [
+    '$0 a month',
+    '1 workspace member',
+    'Core AI filtering into orders, enquiries, and spam',
+  ],
   paid_monthly: [
-    'Paid access for one workspace',
-    'Billed on the plan interval',
-    'Renewed automatically after the first payment',
+    'Monthly subscription for growing food businesses',
+    'Unlimited team invites',
+    'Advanced customer exports',
+    'Priority AI processing',
   ],
 };

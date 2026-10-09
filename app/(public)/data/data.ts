@@ -1,10 +1,35 @@
 import { ElementType } from 'react';
-import AccountTreeOutlined from '@mui/icons-material/AccountTreeOutlined';
-import ExtensionOutlined from '@mui/icons-material/ExtensionOutlined';
-import TableChartOutlined from '@mui/icons-material/TableChartOutlined';
-import PaletteOutlined from '@mui/icons-material/PaletteOutlined';
-import SyncAltOutlined from '@mui/icons-material/SyncAltOutlined';
-import RocketLaunchOutlined from '@mui/icons-material/RocketLaunchOutlined';
+import { ROUTES } from '@/constant/routes.constant';
+import AutoAwesomeOutlined from '@mui/icons-material/AutoAwesomeOutlined';
+import ContactPhoneOutlined from '@mui/icons-material/ContactPhoneOutlined';
+import GroupsOutlined from '@mui/icons-material/GroupsOutlined';
+import LinkOutlined from '@mui/icons-material/LinkOutlined';
+import ReceiptLongOutlined from '@mui/icons-material/ReceiptLongOutlined';
+import RestaurantOutlined from '@mui/icons-material/RestaurantOutlined';
+
+export type MessageCategory = 'order' | 'enquiry' | 'ignore';
+
+export interface PreviewMessage {
+  sender_name: string;
+  preview: string;
+  category: MessageCategory;
+  label: string;
+}
+
+export interface OrderSheetField {
+  label: string;
+  value: string;
+}
+
+export interface ComparisonPoint {
+  text: string;
+}
+
+export interface HowItWorksStep {
+  title: string;
+  description: string;
+  icon: ElementType;
+}
 
 export interface Feature {
   title: string;
@@ -12,97 +37,180 @@ export interface Feature {
   icon: ElementType;
 }
 
-export interface KeyFile {
-  path: string;
-  description: string;
+export interface FaqItem {
+  question: string;
+  answer: string;
 }
 
-export interface NextStep {
-  title: string;
-  description: string;
+export interface LandingPlan {
+  name: string;
+  price: string;
+  cadence: string;
+  audience: string;
+  features: string[];
+  cta: string;
+  href: string;
+  highlighted: boolean;
 }
+
+export const previewMessages: PreviewMessage[] = [
+  {
+    sender_name: 'Adaeze',
+    preview: '2 jollof trays to 14 Allen Avenue, Ikeja',
+    category: 'order',
+    label: 'Order',
+  },
+  {
+    sender_name: 'Tunde',
+    preview: 'How much is the small chops platter?',
+    category: 'enquiry',
+    label: 'Enquiry',
+  },
+  {
+    sender_name: 'Unknown',
+    preview: 'You won a gift card. Tap to claim.',
+    category: 'ignore',
+    label: 'Spam',
+  },
+];
+
+export const orderSheetFields: OrderSheetField[] = [
+  { label: 'Customer', value: 'Adaeze' },
+  { label: 'Phone', value: '0803 000 0000' },
+  { label: 'Address', value: '14 Allen Avenue, Ikeja' },
+  { label: 'Items', value: 'Jollof tray × 2' },
+];
+
+export const categoryClassName: Record<MessageCategory, string> = {
+  order: 'bg-primary-light text-primary',
+  enquiry: 'bg-secondary-light text-secondary',
+  ignore: 'bg-background text-text-light',
+};
+
+export const oldWayPoints: ComparisonPoint[] = [
+  {
+    text: 'Real orders sit under a pile of “how much?” and “where are you located?” messages.',
+  },
+  {
+    text: 'You copy addresses, items, and phone numbers into notes while the food is still on the fire.',
+  },
+  {
+    text: 'Peak hour means missed replies, wrong deliveries, and customers who buy somewhere else.',
+  },
+];
+
+export const socialchefWayPoints: ComparisonPoint[] = [
+  {
+    text: 'WhatsApp and Instagram DMs land in one place, already labelled order, enquiry, or spam.',
+  },
+  {
+    text: 'Names, phones, delivery addresses, items, and amounts are pulled onto an order sheet.',
+  },
+  {
+    text: 'Managers and kitchen staff work from the same board and fulfil the next order without scrolling chats.',
+  },
+];
+
+export const howItWorksSteps: HowItWorksStep[] = [
+  {
+    title: 'Connect your socials',
+    description:
+      'Link WhatsApp or Instagram in under two minutes. New DMs start flowing into Socialchef straight away.',
+    icon: LinkOutlined,
+  },
+  {
+    title: 'AI filters and extracts',
+    description:
+      'Orders are separated from price questions and noise. Addresses and item lists are filled in for you.',
+    icon: AutoAwesomeOutlined,
+  },
+  {
+    title: 'Fulfil and grow',
+    description:
+      'Review a clean order list, hand it to the kitchen, and keep selling while the chat stays quiet.',
+    icon: RestaurantOutlined,
+  },
+];
 
 export const features: Feature[] = [
   {
-    title: 'Route groups',
+    title: 'AI DM classification',
     description:
-      'Public, auth and protected areas are separated from day one, each with its own layout.',
-    icon: AccountTreeOutlined,
+      'Every message is sorted into an order, an enquiry, or spam before you open the thread. You answer buyers first.',
+    icon: AutoAwesomeOutlined,
   },
   {
-    title: 'msflib modules',
+    title: 'Automatic order extraction',
     description:
-      'Auth, workspaces and the API client are wired. Add more modules as your product needs them.',
-    icon: ExtensionOutlined,
+      'Customer name, phone, delivery address, items, and amounts show up on an instant order sheet.',
+    icon: ReceiptLongOutlined,
   },
   {
-    title: 'Forms and tables',
+    title: 'Team workspaces',
     description:
-      'FormBuilder and TableWidget handle data entry and listings with a consistent pattern.',
-    icon: TableChartOutlined,
+      'Invite managers and kitchen staff with the access they need, so fulfilment does not wait on one phone.',
+    icon: GroupsOutlined,
   },
   {
-    title: 'Design tokens',
+    title: 'Customer contact directory',
     description:
-      'Colours, typography and radii live in one theme file shared by Tailwind and Material UI.',
-    icon: PaletteOutlined,
-  },
-  {
-    title: 'Data fetching',
-    description:
-      'TanStack Query hooks sit between your components and the API for caching and refetching.',
-    icon: SyncAltOutlined,
-  },
-  {
-    title: 'Static export',
-    description:
-      'Builds to plain static files, so it deploys anywhere: a CDN, object storage or any web server.',
-    icon: RocketLaunchOutlined,
+      'Buyers are saved as orders come in, so repeat customers and their details are easy to find later.',
+    icon: ContactPhoneOutlined,
   },
 ];
 
-export const keyFiles: KeyFile[] = [
+export const landingPlans: LandingPlan[] = [
   {
-    path: 'docs/IMPLEMENTATION_GUIDE.md',
-    description: 'Team conventions. Read this before writing code.',
+    name: 'Free',
+    price: '$0',
+    cadence: '/mo',
+    audience: 'For solo vendors starting out.',
+    features: [
+      '1 workspace member',
+      'Core AI filtering into orders, enquiries, and spam',
+      'Order details on your dashboard',
+    ],
+    cta: 'Start free',
+    href: ROUTES.register,
+    highlighted: false,
   },
   {
-    path: 'lib/application.config.ts',
-    description: 'API base URL, token key and workspace settings.',
-  },
-  {
-    path: 'app/Provider.tsx',
-    description: 'Provider tree. Register msflib module providers here.',
-  },
-  {
-    path: 'theme/theme.css',
-    description: 'Design tokens for colour, typography and radius.',
-  },
-  {
-    path: 'constant/routes.constant.ts',
-    description: 'Every route in the app, in one place.',
+    name: 'Paid',
+    price: 'Monthly',
+    cadence: ' subscription',
+    audience: 'For growing food businesses.',
+    features: [
+      'Unlimited team invites',
+      'Advanced customer exports',
+      'Priority AI processing',
+    ],
+    cta: 'Create an account',
+    href: ROUTES.register,
+    highlighted: true,
   },
 ];
 
-export const nextSteps: NextStep[] = [
+export const faqs: FaqItem[] = [
   {
-    title: 'Configure your environment',
-    description:
-      'Set the API URL, token key and tenancy mode in .env.local to match your backend.',
+    question:
+      'Will Socialchef send auto-replies to my customers without my permission?',
+    answer:
+      'No. Socialchef reads incoming WhatsApp and Instagram messages and organises them for you. It does not message your customers. You still send every reply yourself.',
   },
   {
-    title: 'Try the auth flow',
-    description:
-      'Create an account and log in to check the scaffold works against your backend.',
+    question:
+      'How accurately does the AI distinguish between an enquiry and an order?',
+    answer:
+      'A clear buy request, with items or quantities, is treated as an order. Questions about price, menu, hours, or location stay enquiries. Casual chatter and spam are set aside. You still review the board before the kitchen starts cooking.',
   },
   {
-    title: 'Build your first feature',
-    description:
-      'Follow the lesson example under admin/lesson: list, manage and view pages.',
+    question: 'What social platforms are supported?',
+    answer:
+      'WhatsApp and Instagram DMs. Both show up in the same inbox, so you are not switching apps to find the next order.',
   },
   {
-    title: 'Make it yours',
-    description:
-      'Update the theme tokens, logo and this page with your own product story.',
+    question: 'Can my kitchen staff access the dashboard on their phones?',
+    answer:
+      'Yes. The dashboard works in a phone browser. Invite kitchen staff or a manager, and they can open the order list on the phone already in their pocket.',
   },
 ];

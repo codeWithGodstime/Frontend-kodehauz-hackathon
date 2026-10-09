@@ -7,18 +7,25 @@ export default function PublicHeader() {
   return (
     <header className="sticky top-0 z-10 border-b border-stroke bg-surface/90 backdrop-blur">
       <AppContainer>
-        <div className="flex h-16 items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-3 py-3">
           <Link href={ROUTES.home} className="h6-b text-text">
-            MSF App
+            Socialchef
           </Link>
-          <nav className="flex flex-wrap items-center justify-end gap-2">
-            <AppButton variant="text" href={ROUTES.pricing}>
-              Pricing
-            </AppButton>
+          <nav className="flex items-center justify-end gap-1 sm:gap-2">
+            <span className="hidden md:inline-flex">
+              <AppButton variant="text" href={`${ROUTES.home}#how-it-works`}>
+                How it works
+              </AppButton>
+            </span>
+            <span className="hidden sm:inline-flex">
+              <AppButton variant="text" href={ROUTES.pricing}>
+                Pricing
+              </AppButton>
+            </span>
             <AppButton variant="text" href={ROUTES.login}>
               Log in
             </AppButton>
-            <AppButton href={ROUTES.register}>Create account</AppButton>
+            <AppButton href={ROUTES.register}>Start free</AppButton>
           </nav>
         </div>
       </AppContainer>
