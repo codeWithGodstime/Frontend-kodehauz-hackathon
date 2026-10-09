@@ -1,3 +1,4 @@
+import AppIntentChip from '@/components/AppIntentChip';
 import { IngestedMessage } from '@/types/ingested-message.types';
 import { TableColumn } from '@/types/table.types';
 import {
@@ -7,6 +8,12 @@ import {
 } from '@/utils/ingested-message.utils';
 
 export const enquiryColumns: TableColumn<IngestedMessage>[] = [
+  {
+    field: 'category',
+    headerName: 'Label',
+    width: 110,
+    renderCell: ({ row }) => <AppIntentChip category={row.category} />,
+  },
   {
     field: 'timestamp',
     headerName: 'Received',

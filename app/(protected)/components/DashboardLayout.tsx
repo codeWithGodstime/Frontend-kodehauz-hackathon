@@ -19,7 +19,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
-        <main className="flex-1 overflow-y-auto bg-surface p-4 lg:p-6">
+        <main className="flex-1 overflow-y-auto bg-background p-4 lg:p-6">
           <Breadcrumbs />
           {children}
         </main>

@@ -6,7 +6,7 @@ import AppButton from '@/components/AppButton';
 import { ROUTES } from '@/constant/routes.constant';
 import { SubscriptionPlan } from '@/types/subscription-plan.types';
 import { formatPlanAmount, planCadenceLabel } from '@/utils/plan-amount.utils';
-import { planFeatures } from '../data/data';
+import { planTiers } from '../../data/data';
 
 interface PricingCardProps {
   plan: SubscriptionPlan;
@@ -23,14 +23,29 @@ export default function PricingCard({
 }: PricingCardProps) {
   const signedIn = authStatus === 'authenticated';
   const freePlan = plan.tier === 'free';
-  const features = planFeatures[plan.plan_key] ?? [];
+  const tier = planTiers.find((item) => item.plan_key === plan.plan_key);
+  const features = tier?.features ?? [];
   const guestHref = freePlan ? ROUTES.register : ROUTES.login;
 
   return (
-    <article className="flex w-full max-w-sm flex-col rounded-app-radius border border-stroke bg-surface p-6">
-      <h2 className="h5-b text-text">{plan.name}</h2>
-      <p className="mt-4 text-text">
-        <span className="h3-b">
+    <article
+      className={`card-lift relative flex w-full max-w-sm flex-col rounded-app-radius p-6 md:p-7 ${
+        tier?.highlighted
+          ? 'glass-strong shadow-glow-gold border-stroke-strong'
+          : 'glass'
+      }`}
+    >
+      {tier?.highlighted ? (
+        <span className="eyebrow absolute -top-3 left-6 rounded-chip-radius bg-primary px-3 py-1 text-on-primary">
+          Most popular
+        </span>
+      ) : null}
+      <h2 className="d4-m text-text">{plan.name}</h2>
+      {tier ? (
+        <p className="b2-r mt-1 text-text-light">{tier.tagline}</p>
+      ) : null}
+      <p className="mt-6 text-text">
+        <span className="d3-m tabular">
           {formatPlanAmount(plan.amount_kobo, plan.currency)}
         </span>
         {freePlan ? null : (
@@ -43,14 +58,17 @@ export default function PricingCard({
       <ul className="mt-6 flex flex-1 flex-col gap-3">
         {features.map((feature) => (
           <li key={feature} className="b2-r flex items-start gap-2 text-text">
-            <Check className="text-primary" fontSize="small" />
+            <Check className="mt-0.5 shrink-0 text-primary" fontSize="small" />
             <span>{feature}</span>
           </li>
         ))}
       </ul>
-      <div className="mt-6">
+      <div className="mt-8">
         <AppButton
           fullWidth
+          size="large"
+          variant={tier?.highlighted ? 'contained' : 'outlined'}
+          className={tier?.highlighted ? 'btn-shimmer' : undefined}
           loading={!freePlan && subscribing}
           disabled={
             freePlan ? signedIn : authStatus === 'loading' || !plan.plan_code

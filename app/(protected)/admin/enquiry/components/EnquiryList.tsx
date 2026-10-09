@@ -3,6 +3,7 @@
 import AppButton from '@/components/AppButton';
 import TableWidget from '@/dynamics/TableWidget';
 import { enquiryColumns } from '@/columns/enquiry.column';
+import { ROUTES } from '@/constant/routes.constant';
 import IngestedMessageAccess from '../../components/IngestedMessageAccess';
 import { useIngestedMessages } from '@/hooks/ingested-message.hooks';
 
@@ -18,7 +19,7 @@ export default function EnquiryList() {
     <IngestedMessageAccess title="Enquiries">
       <section className="flex flex-col gap-6">
         <div>
-          <h1 className="h4-b text-text">Enquiries</h1>
+          <h1 className="d3-m text-text">Enquiries</h1>
           <p className="b2-r text-text-light">
             Customer questions ingested from connected platforms in this
             workspace.
@@ -33,10 +34,19 @@ export default function EnquiryList() {
             </AppButton>
           </div>
         ) : !isLoading && rows.length === 0 ? (
-          <p className="b2-r text-text-light">
-            No enquiries yet. New WhatsApp messages classified as enquiries will
-            appear here.
-          </p>
+          <div className="panel flex flex-col items-start gap-3 p-6">
+            <p className="b1-m text-text">No enquiries yet.</p>
+            <p className="b2-r text-text-light">
+              Questions about price, delivery or your menu will appear here as
+              soon as a connected page receives one.
+            </p>
+            <AppButton
+              variant="outlined"
+              href={ROUTES.admin.platformConnection.list}
+            >
+              Connect a page
+            </AppButton>
+          </div>
         ) : (
           <TableWidget
             rows={rows}

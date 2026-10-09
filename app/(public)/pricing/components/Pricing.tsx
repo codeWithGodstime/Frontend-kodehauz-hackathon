@@ -11,6 +11,7 @@ import {
   useSubscriptionPlans,
 } from '@/hooks/subscription-plan.hooks';
 import { SubscriptionPlan } from '@/types/subscription-plan.types';
+import { pricingCopy } from '../../data/data';
 import PricingCard from './PricingCard';
 import PricingCardLayout from './PricingCardLayout';
 
@@ -54,14 +55,11 @@ export default function Pricing() {
           id="pricing"
           className="mx-auto max-w-2xl scroll-mt-20 text-center"
         >
-          <p className="b2-m text-primary">Pricing</p>
-          <h1 className="h3-b mt-2 text-text">
-            Start free. Upgrade when the lunch rush gets bigger.
+          <p className="eyebrow text-primary">{pricingCopy.eyebrow}</p>
+          <h1 className="d2-m mt-4 text-balance text-text">
+            {pricingCopy.headline}
           </h1>
-          <p className="b1-r mt-4 text-text-light">
-            Solo vendors get core AI filtering at $0 a month. Growing kitchens
-            move to the monthly plan for a bigger team and faster processing.
-          </p>
+          <p className="lead-r mt-5 text-text-light">{pricingCopy.body}</p>
         </div>
 
         {isError ? (

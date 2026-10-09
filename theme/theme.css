@@ -1,98 +1,214 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 @import 'tailwindcss';
 
+/*
+ * SocialChef design tokens.
+ * Dark espresso is the default. The ivory variant is applied with
+ * <html data-theme="light">. theme.config.ts mirrors the raw colour values.
+ */
 :root {
-  --surface: #f7fafc;
-  --background: #f7f7f7;
-  --background-light: #f2f2f2;
-  --stroke: #e6e6e6;
-  --text: #3b3b3b;
-  --text-light: #868686;
-  --disabled: #a0a0a0;
-  --primary: #188c43;
-  --primary-light: #e6ebe6;
-  --primary-dark: #b0c0b0;
-  --secondary: #fd730e;
-  --secondary-light: #fcf3e6;
-  --secondary-dark: #f7dab0;
-  --tertiary: #cc6668;
-  --tertiary-light: #faf0f0;
-  --tertiary-dark: #efd0d0;
-  --success: #22c55e;
-  --error: #dc2626;
-  --neutral: #272727;
-  --on-primary: #ffffff;
+  --espresso: #0e0b09;
+  --espresso-deep: #060403;
+  --ivory: #f5efe6;
+  --ivory-muted: #a89f93;
+  --gold: #c9a25f;
+  --gold-deep: #a8823f;
+  --ember: #d9743a;
+  --saffron: #e9a23b;
+  --sage: #8fae88;
+  --sage-deep: #5f7b5b;
 
-  --font-app-font: 'Lexend', sans-serif;
-  --font-secondary-font: 'Inter', sans-serif;
+  --surface: #15110e;
+  --background: #0e0b09;
+  --background-light: #1c1613;
+  --stroke: color-mix(in srgb, var(--gold) 18%, transparent);
+  --stroke-strong: color-mix(in srgb, var(--gold) 36%, transparent);
+  --text: var(--ivory);
+  --text-light: var(--ivory-muted);
+  --disabled: #6e655a;
+  --primary: var(--gold);
+  --primary-light: color-mix(in srgb, var(--gold) 14%, transparent);
+  --primary-dark: var(--gold-deep);
+  --secondary: var(--sage);
+  --secondary-light: color-mix(in srgb, var(--sage) 14%, transparent);
+  --secondary-dark: var(--sage-deep);
+  --tertiary: var(--ember);
+  --tertiary-light: color-mix(in srgb, var(--ember) 14%, transparent);
+  --tertiary-dark: #a6522a;
+  --success: var(--sage);
+  --error: #e0645a;
+  --neutral: var(--espresso-deep);
+  --on-primary: var(--espresso);
+
+  --label-order: var(--gold);
+  --label-order-bg: color-mix(in srgb, var(--gold) 16%, transparent);
+  --label-enquiry: var(--ivory);
+  --label-enquiry-bg: color-mix(in srgb, var(--ivory) 10%, transparent);
+  --label-noise: var(--ivory-muted);
+  --label-noise-bg: color-mix(in srgb, var(--ivory-muted) 10%, transparent);
+  --label-confirmed: var(--sage);
+  --label-confirmed-bg: color-mix(in srgb, var(--sage) 16%, transparent);
+
+  --glass: color-mix(in srgb, var(--ivory) 4%, transparent);
+  --glass-strong: color-mix(in srgb, var(--ivory) 7%, transparent);
+  --glass-border: color-mix(in srgb, var(--gold) 22%, transparent);
+  --glass-inner: inset 0 1px 0 color-mix(in srgb, var(--ivory) 8%, transparent);
+
+  --font-app-font: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-display-font: var(--font-fraunces), 'Fraunces', Georgia, serif;
+
+  --display-1-m: 500 clamp(2.75rem, 2.2vw + 2.1rem, 4.75rem) / 1.02
+    var(--font-display-font); /* 44px → 76px */
+  --display-1-r: 400 clamp(2.75rem, 2.2vw + 2.1rem, 4.75rem) / 1.02
+    var(--font-display-font);
+  --display-2-m: 500 clamp(2.125rem, 1.6vw + 1.6rem, 3.5rem) / 1.06
+    var(--font-display-font); /* 34px → 56px */
+  --display-2-r: 400 clamp(2.125rem, 1.6vw + 1.6rem, 3.5rem) / 1.06
+    var(--font-display-font);
+  --display-3-m: 500 clamp(1.625rem, 0.9vw + 1.35rem, 2.375rem) / 1.12
+    var(--font-display-font); /* 26px → 38px */
+  --display-3-r: 400 clamp(1.625rem, 0.9vw + 1.35rem, 2.375rem) / 1.12
+    var(--font-display-font);
+  --display-4-m: 500 clamp(1.25rem, 0.4vw + 1.1rem, 1.625rem) / 1.2
+    var(--font-display-font); /* 20px → 26px */
+  --display-4-r: 400 clamp(1.25rem, 0.4vw + 1.1rem, 1.625rem) / 1.2
+    var(--font-display-font);
+  --display-tracking: -0.02em;
 
   --heading-1-b: 700 clamp(2rem, 1.5vw + 1.5rem, 3.2rem) / 1.125
     var(--font-app-font); /* 32px → 51.2px */
   --heading-1-m: 500 clamp(2rem, 1.5vw + 1.5rem, 3.2rem) / 1.125
-    var(--font-app-font); /* 32px → 51.2px */
+    var(--font-app-font);
   --heading-1-r: 400 clamp(2rem, 1.5vw + 1.5rem, 3.2rem) / 1.125
-    var(--font-app-font); /* 32px → 51.2px */
+    var(--font-app-font);
 
   --heading-2-b: 700 clamp(1.75rem, 1.2vw + 1.35rem, 2.5rem) / 1.12
     var(--font-app-font); /* 28px → 40px */
   --heading-2-m: 500 clamp(1.75rem, 1.2vw + 1.35rem, 2.5rem) / 1.12
-    var(--font-app-font); /* 28px → 40px */
+    var(--font-app-font);
   --heading-2-r: 400 clamp(1.75rem, 1.2vw + 1.35rem, 2.5rem) / 1.12
-    var(--font-app-font); /* 28px → 40px */
+    var(--font-app-font);
 
   --heading-3-b: 700 clamp(1.5rem, 0.8vw + 1.25rem, 2rem) / 1.1875
     var(--font-app-font); /* 24px → 32px */
   --heading-3-m: 500 clamp(1.5rem, 0.8vw + 1.25rem, 2rem) / 1.1875
-    var(--font-app-font); /* 24px → 32px */
+    var(--font-app-font);
   --heading-3-r: 400 clamp(1.5rem, 0.8vw + 1.25rem, 2rem) / 1.1875
-    var(--font-app-font); /* 24px → 32px */
+    var(--font-app-font);
 
   --heading-4-b: 700 clamp(1.25rem, 0.5vw + 1.1rem, 1.625rem) / 1.214
     var(--font-app-font); /* 20px → 26px */
   --heading-4-m: 500 clamp(1.25rem, 0.5vw + 1.1rem, 1.625rem) / 1.214
-    var(--font-app-font); /* 20px → 26px */
+    var(--font-app-font);
   --heading-4-r: 400 clamp(1.25rem, 0.5vw + 1.1rem, 1.625rem) / 1.214
-    var(--font-app-font); /* 20px → 26px */
+    var(--font-app-font);
 
   --heading-5-b: 700 clamp(1.125rem, 0.4vw + 1rem, 1.375rem) / 1.333
     var(--font-app-font); /* 18px → 22px */
   --heading-5-m: 500 clamp(1.125rem, 0.4vw + 1rem, 1.375rem) / 1.333
-    var(--font-app-font); /* 18px → 22px */
+    var(--font-app-font);
   --heading-5-r: 400 clamp(1.125rem, 0.4vw + 1rem, 1.375rem) / 1.333
-    var(--font-app-font); /* 18px → 22px */
+    var(--font-app-font);
 
   --heading-6-b: 700 clamp(1rem, 0.25vw + 0.95rem, 1.125rem) / 1.4
     var(--font-app-font); /* 16px → 18px */
   --heading-6-m: 500 clamp(1rem, 0.25vw + 0.95rem, 1.125rem) / 1.4
-    var(--font-app-font); /* 16px → 18px */
+    var(--font-app-font);
   --heading-6-r: 400 clamp(1rem, 0.25vw + 0.95rem, 1.125rem) / 1.4
-    var(--font-app-font); /* 16px → 18px */
+    var(--font-app-font);
+
+  --lead-r: 400 clamp(1.0625rem, 0.3vw + 1rem, 1.25rem) / 1.55
+    var(--font-app-font); /* 17px → 20px */
 
   --body-1-b: 700 1rem / 1.5 var(--font-app-font); /* 16px */
-  --body-1-m: 500 1rem / 1.5 var(--font-app-font); /* 16px */
-  --body-1-r: 400 1rem / 1.5 var(--font-app-font); /* 16px */
+  --body-1-m: 500 1rem / 1.5 var(--font-app-font);
+  --body-1-r: 400 1rem / 1.5 var(--font-app-font);
 
   --body-2-b: 700 0.875rem / 1.43 var(--font-app-font); /* 14px */
-  --body-2-m: 500 0.875rem / 1.43 var(--font-app-font); /* 14px */
-  --body-2-r: 400 0.875rem / 1.43 var(--font-app-font); /* 14px */
+  --body-2-m: 500 0.875rem / 1.43 var(--font-app-font);
+  --body-2-r: 400 0.875rem / 1.43 var(--font-app-font);
 
   --footer-1-b: 700 0.75rem / 1.33 var(--font-app-font); /* 12px */
-  --footer-1-m: 500 0.75rem / 1.33 var(--font-app-font); /* 12px */
-  --footer-1-r: 400 0.75rem / 1.33 var(--font-app-font); /* 12px */
+  --footer-1-m: 500 0.75rem / 1.33 var(--font-app-font);
+  --footer-1-r: 400 0.75rem / 1.33 var(--font-app-font);
 
   --footer-2-b: 700 0.625rem / 1.4 var(--font-app-font); /* 10px */
-  --footer-2-m: 500 0.625rem / 1.4 var(--font-app-font); /* 10px */
-  --footer-2-r: 400 0.625rem / 1.4 var(--font-app-font); /* 10px */
+  --footer-2-m: 500 0.625rem / 1.4 var(--font-app-font);
+  --footer-2-r: 400 0.625rem / 1.4 var(--font-app-font);
 
+  --space-2xs: 2px;
+  --space-xs: 4px;
+  --space-sm: 6px;
   --space-md: 8px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 40px;
+  --space-3xl: 64px;
+  --space-section: clamp(5rem, 8vw, 8rem);
 
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
-  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.08);
-  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.12);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.35);
+  --shadow-lg: 0 24px 64px rgb(0 0 0 / 0.5);
+  --glow-gold-shadow:
+    0 0 0 1px var(--stroke-strong),
+    0 12px 40px color-mix(in srgb, var(--gold) 18%, transparent);
+  --glow-ember-shadow: 0 0 80px
+    color-mix(in srgb, var(--ember) 22%, transparent);
+  --card-shadow: var(--glass-inner), 0 12px 32px rgb(0 0 0 / 0.35);
 
-  --app-radius: 25px;
+  --app-radius: 20px;
   --button-radius: 12px;
   --input-radius: 12px;
+  --chip-radius: 999px;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-reveal: 600ms;
+  --motion-fast: 240ms;
+
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --surface: #fbf7f0;
+  --background: #f5efe6;
+  --background-light: #ede5d8;
+  --stroke: color-mix(in srgb, var(--gold-deep) 30%, transparent);
+  --stroke-strong: color-mix(in srgb, var(--gold-deep) 50%, transparent);
+  --text: #1a1410;
+  --text-light: #5e564c;
+  --disabled: #9a9186;
+  --primary: #8f6b2a;
+  --primary-light: color-mix(in srgb, var(--gold) 22%, transparent);
+  --primary-dark: #6b4f1c;
+  --secondary: var(--sage-deep);
+  --secondary-light: color-mix(in srgb, var(--sage) 22%, transparent);
+  --secondary-dark: #44593f;
+  --tertiary: #b85a24;
+  --tertiary-light: color-mix(in srgb, var(--ember) 16%, transparent);
+  --success: var(--sage-deep);
+  --error: #b42318;
+  --neutral: #1a1410;
+  --on-primary: var(--ivory);
+
+  --label-order: #8f6b2a;
+  --label-order-bg: color-mix(in srgb, var(--gold) 24%, transparent);
+  --label-enquiry: #1a1410;
+  --label-enquiry-bg: color-mix(in srgb, #1a1410 8%, transparent);
+  --label-noise: #5e564c;
+  --label-noise-bg: color-mix(in srgb, #5e564c 10%, transparent);
+  --label-confirmed: var(--sage-deep);
+  --label-confirmed-bg: color-mix(in srgb, var(--sage) 24%, transparent);
+
+  --glass: color-mix(in srgb, #ffffff 55%, transparent);
+  --glass-strong: color-mix(in srgb, #ffffff 75%, transparent);
+  --glass-border: color-mix(in srgb, var(--gold-deep) 28%, transparent);
+  --glass-inner: inset 0 1px 0 color-mix(in srgb, #ffffff 80%, transparent);
+
+  --shadow-sm: 0 1px 2px rgb(26 20 16 / 0.06);
+  --shadow-md: 0 8px 24px rgb(26 20 16 / 0.08);
+  --shadow-lg: 0 24px 64px rgb(26 20 16 / 0.12);
+  --card-shadow: var(--glass-inner), 0 12px 32px rgb(26 20 16 / 0.08);
+
+  color-scheme: light;
 }
 
 @theme inline {
@@ -102,6 +218,7 @@
   --color-text: var(--text);
   --color-text-light: var(--text-light);
   --color-stroke: var(--stroke);
+  --color-stroke-strong: var(--stroke-strong);
   --color-disabled: var(--disabled);
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
@@ -116,14 +233,123 @@
   --color-error: var(--error);
   --color-neutral: var(--neutral);
   --color-on-primary: var(--on-primary);
+  --color-gold: var(--gold);
+  --color-ember: var(--ember);
+  --color-saffron: var(--saffron);
+  --color-sage: var(--sage);
+  --color-ivory: var(--ivory);
+  --color-ivory-muted: var(--ivory-muted);
+  --color-label-order: var(--label-order);
+  --color-label-order-bg: var(--label-order-bg);
+  --color-label-enquiry: var(--label-enquiry);
+  --color-label-enquiry-bg: var(--label-enquiry-bg);
+  --color-label-noise: var(--label-noise);
+  --color-label-noise-bg: var(--label-noise-bg);
+  --color-label-confirmed: var(--label-confirmed);
+  --color-label-confirmed-bg: var(--label-confirmed-bg);
+  --color-glass: var(--glass);
+  --color-glass-strong: var(--glass-strong);
+  --color-glass-border: var(--glass-border);
+
   --font-primary: var(--font-app-font);
+  --font-display: var(--font-display-font);
 
   --radius-app-radius: var(--app-radius);
   --radius-btn-radius: var(--button-radius);
   --radius-input-radius: var(--input-radius);
+  --radius-chip-radius: var(--chip-radius);
+
+  --shadow-card: var(--card-shadow);
+  --shadow-glow-gold: var(--glow-gold-shadow);
+  --shadow-glow-ember: var(--glow-ember-shadow);
+
+  --spacing-section: var(--space-section);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shimmer-sweep {
+  from {
+    transform: translateX(-130%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(230%) skewX(-18deg);
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--text);
+    font: var(--body-1-r);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--gold) 40%, transparent);
+    color: var(--text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 }
 
 @layer components {
+  .d1-m {
+    font: var(--display-1-m);
+    letter-spacing: var(--display-tracking);
+  }
+  .d1-r {
+    font: var(--display-1-r);
+    letter-spacing: var(--display-tracking);
+  }
+  .d2-m {
+    font: var(--display-2-m);
+    letter-spacing: var(--display-tracking);
+  }
+  .d2-r {
+    font: var(--display-2-r);
+    letter-spacing: var(--display-tracking);
+  }
+  .d3-m {
+    font: var(--display-3-m);
+    letter-spacing: -0.015em;
+  }
+  .d3-r {
+    font: var(--display-3-r);
+    letter-spacing: -0.015em;
+  }
+  .d4-m {
+    font: var(--display-4-m);
+    letter-spacing: -0.01em;
+  }
+  .d4-r {
+    font: var(--display-4-r);
+    letter-spacing: -0.01em;
+  }
+
+  .lead-r {
+    font: var(--lead-r);
+  }
+
+  .eyebrow {
+    font: var(--footer-1-m);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
   .h1-b {
     font: var(--heading-1-b);
   }
@@ -222,5 +448,161 @@
   }
   .f2-r {
     font: var(--footer-2-r);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Surfaces */
+  .glass {
+    background-color: var(--glass);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .glass-strong {
+    background-color: var(--glass-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .hairline {
+    border: 1px solid var(--stroke);
+  }
+
+  .panel {
+    background-color: var(--surface);
+    border: 1px solid var(--stroke);
+    border-radius: var(--app-radius);
+  }
+
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.055;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .glow-gold {
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--gold) 28%, transparent),
+      transparent
+    );
+  }
+
+  .glow-ember {
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--ember) 30%, transparent) 0%,
+      color-mix(in srgb, var(--saffron) 12%, transparent) 45%,
+      transparent 100%
+    );
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(
+      120deg,
+      var(--ivory) 0%,
+      var(--gold) 45%,
+      var(--saffron) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .divider-fade {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--stroke-strong),
+      transparent
+    );
+  }
+
+  /* Interaction */
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .btn-shimmer::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 38%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--ivory) 45%, transparent),
+      transparent
+    );
+    transform: translateX(-130%) skewX(-18deg);
+  }
+
+  .btn-shimmer:hover::after {
+    animation: shimmer-sweep 0.9s var(--ease-out-soft) forwards;
+  }
+
+  .card-lift {
+    transition:
+      transform var(--motion-fast) var(--ease-out-soft),
+      border-color var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease;
+  }
+
+  .card-lift:hover {
+    transform: translateY(-4px);
+    border-color: var(--stroke-strong);
+    box-shadow: var(--glow-gold-shadow);
+  }
+
+  .motion-rise {
+    animation: rise-in var(--motion-reveal) var(--ease-out-soft) both;
+  }
+
+  .motion-delay-1 {
+    animation-delay: 100ms;
+  }
+
+  .motion-delay-2 {
+    animation-delay: 200ms;
+  }
+
+  .motion-delay-3 {
+    animation-delay: 320ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-rise,
+  .card-lift,
+  .card-lift:hover,
+  .btn-shimmer:hover::after {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

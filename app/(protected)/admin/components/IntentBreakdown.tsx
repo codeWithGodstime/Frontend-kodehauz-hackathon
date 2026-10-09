@@ -1,10 +1,11 @@
+import AppIntentChip from '@/components/AppIntentChip';
 import { DashboardIntent } from '@/types/dashboard.types';
 import { formatCount } from '@/utils/dashboard.utils';
 
 const SEGMENTS = [
-  { key: 'order', label: 'Order', className: 'bg-primary' },
-  { key: 'enquiry', label: 'Enquiry', className: 'bg-secondary' },
-  { key: 'ignore', label: 'Ignore', className: 'bg-tertiary' },
+  { key: 'order', className: 'bg-label-order' },
+  { key: 'enquiry', className: 'bg-label-enquiry' },
+  { key: 'ignore', className: 'bg-label-noise' },
 ] as const;
 
 export default function IntentBreakdown({
@@ -23,9 +24,9 @@ export default function IntentBreakdown({
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-4">
       <div
-        className="flex h-3 overflow-hidden rounded-app-radius bg-background"
+        className="flex h-2.5 gap-0.5 overflow-hidden rounded-chip-radius bg-background-light"
         role="img"
         aria-label="Intent distribution"
       >
@@ -35,21 +36,18 @@ export default function IntentBreakdown({
           return (
             <div
               key={segment.key}
-              className={segment.className}
+              className={`${segment.className} rounded-chip-radius`}
               style={{ width: `${(count / classified) * 100}%` }}
             />
           );
         })}
       </div>
-      <ul className="flex flex-wrap gap-4">
+      <ul className="flex flex-wrap gap-x-5 gap-y-2">
         {SEGMENTS.map((segment) => (
           <li key={segment.key} className="flex items-center gap-2">
-            <span className={`h-2 w-2 rounded-full ${segment.className}`} />
-            <span className="b2-r text-text">
-              {segment.label}{' '}
-              <span className="text-text-light">
-                {formatCount(intent[segment.key])}
-              </span>
+            <AppIntentChip category={segment.key} />
+            <span className="b2-m tabular text-text">
+              {formatCount(intent[segment.key])}
             </span>
           </li>
         ))}

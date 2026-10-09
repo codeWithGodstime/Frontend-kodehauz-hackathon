@@ -1,12 +1,26 @@
 import type { Metadata } from 'next';
+import { Fraunces, Inter } from 'next/font/google';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import '@/theme/theme.css';
 import Providers from './Provider';
 
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+  axes: ['opsz', 'SOFT'],
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
-  title: 'Socialchef',
+  title: 'SocialChef — Turn your DMs into data',
   description:
-    'Socialchef sorts WhatsApp and Instagram DMs into orders, enquiries, and spam for food vendors.',
+    'SocialChef connects your Instagram, Facebook, TikTok and WhatsApp pages, catches every order and enquiry in the comments and DMs, and shows you what sells, when, and to whom.',
 };
 
 export default function RootLayout({
@@ -15,7 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      data-theme="dark"
+      className={`${fraunces.variable} ${inter.variable}`}
+    >
       <body>
         <AppRouterCacheProvider>
           <Providers>{children}</Providers>

@@ -32,10 +32,11 @@ export default function DashboardReport({
   const range = formatPeriodRange(metrics.period.start, metrics.period.end);
 
   return (
-    <section className="flex flex-col gap-6">
+    <section className="flex flex-col gap-10">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="h4-b text-text">Dashboard</h1>
+          <p className="eyebrow text-primary">Workspace</p>
+          <h1 className="d3-m mt-2 text-text">Dashboard</h1>
           <p className="b2-r mt-1 text-text-light">
             Sales, intent, and customer activity for the active workspace.
           </p>
@@ -60,7 +61,7 @@ export default function DashboardReport({
 
       <section className="flex flex-col gap-4">
         <div>
-          <h2 className="h6-b text-text">Operational and sales</h2>
+          <h2 className="d4-m text-text">Operational and sales</h2>
           <p className="b2-r text-text-light">
             Leads received, enquiries that became orders, and what sold.
           </p>
@@ -85,7 +86,7 @@ export default function DashboardReport({
             detail="Gross value extracted from order messages"
           />
         </div>
-        <div className="rounded-app-radius border border-stroke bg-background p-4">
+        <div className="panel p-4">
           <h3 className="b1-m text-text">Top-selling items</h3>
           {operational.top_selling_items.length === 0 ? (
             <p className="b2-r mt-2 text-text-light">
@@ -113,13 +114,13 @@ export default function DashboardReport({
 
       <section className="flex flex-col gap-4">
         <div>
-          <h2 className="h6-b text-text">Message intent</h2>
+          <h2 className="d4-m text-text">Message intent</h2>
           <p className="b2-r text-text-light">
             How processed messages were categorized.
           </p>
         </div>
         <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-          <div className="rounded-app-radius border border-stroke bg-background p-4">
+          <div className="panel p-4">
             <h3 className="b1-m mb-3 text-text">Intent distribution</h3>
             <IntentBreakdown intent={intent} />
           </div>
@@ -141,7 +142,7 @@ export default function DashboardReport({
 
       <section className="flex flex-col gap-4">
         <div>
-          <h2 className="h6-b text-text">Response and customers</h2>
+          <h2 className="d4-m text-text">Response and customers</h2>
           <p className="b2-r text-text-light">
             New contacts, repeat buyers, and how classification was handled.
           </p>

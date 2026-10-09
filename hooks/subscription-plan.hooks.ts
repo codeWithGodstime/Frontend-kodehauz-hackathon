@@ -1,7 +1,14 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createWorkspaceApi } from '@msflib/react-workspace';
 import { subscriptionPlanApi } from '@/api/subscription-plan.api';
-import { SubscriptionCheckoutPayload } from '@/types/subscription-plan.types';
+import {
+  SUBSCRIPTION_PLAN_CACHE_KEY,
+  SUBSCRIPTION_PLAN_CACHE_MS,
+} from '@/constant/subscription-plan.constant';
+import {
+  SubscriptionCheckoutPayload,
+  SubscriptionPlan,
+} from '@/types/subscription-plan.types';
 
 export const NO_WORKSPACE_MESSAGE = 'Create a workspace before subscribing.';
 
@@ -10,10 +17,68 @@ export const subscriptionPlanKeys = {
   list: () => [...subscriptionPlanKeys.all, 'list'] as const,
 };
 
+interface CachedSubscriptionPlans {
+  saved_at: number;
+  plans: SubscriptionPlan[];
+}
+
+function isSubscriptionPlan(value: unknown): value is SubscriptionPlan {
+  if (!value || typeof value !== 'object') return false;
+  const plan = value as SubscriptionPlan;
+  return (
+    typeof plan.id === 'number' &&
+    typeof plan.plan_key === 'string' &&
+    typeof plan.name === 'string' &&
+    (plan.tier === 'free' || plan.tier === 'paid') &&
+    typeof plan.interval === 'string' &&
+    typeof plan.amount_kobo === 'number' &&
+    typeof plan.currency === 'string' &&
+    (plan.plan_code === null || typeof plan.plan_code === 'string')
+  );
+}
+
+function readSubscriptionPlanCache(): SubscriptionPlan[] | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.localStorage.getItem(SUBSCRIPTION_PLAN_CACHE_KEY);
+    if (!raw) return null;
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return null;
+    const cached = parsed as CachedSubscriptionPlans;
+    if (typeof cached.saved_at !== 'number' || !Array.isArray(cached.plans)) {
+      return null;
+    }
+    if (Date.now() - cached.saved_at >= SUBSCRIPTION_PLAN_CACHE_MS) return null;
+    if (!cached.plans.every(isSubscriptionPlan)) return null;
+    return cached.plans;
+  } catch {
+    return null;
+  }
+}
+
+function writeSubscriptionPlanCache(plans: SubscriptionPlan[]) {
+  if (typeof window === 'undefined' || plans.length === 0) return;
+  const payload: CachedSubscriptionPlans = { saved_at: Date.now(), plans };
+  window.localStorage.setItem(
+    SUBSCRIPTION_PLAN_CACHE_KEY,
+    JSON.stringify(payload)
+  );
+}
+
 export const useSubscriptionPlans = () =>
   useQuery({
     queryKey: subscriptionPlanKeys.list(),
-    queryFn: subscriptionPlanApi.list,
+    queryFn: async () => {
+      const cached = readSubscriptionPlanCache();
+      if (cached) return cached;
+      const plans = await subscriptionPlanApi.list();
+      writeSubscriptionPlanCache(plans);
+      return plans;
+    },
+    staleTime: SUBSCRIPTION_PLAN_CACHE_MS,
+    gcTime: SUBSCRIPTION_PLAN_CACHE_MS,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
     retry: false,
   });
 

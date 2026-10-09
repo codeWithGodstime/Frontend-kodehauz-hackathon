@@ -4,7 +4,7 @@ import Pricing from './components/Pricing';
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="grain min-h-screen bg-background">
       <PublicHeader />
       <Pricing />
       <PublicFooter />
